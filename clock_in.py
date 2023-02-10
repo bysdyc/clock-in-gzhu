@@ -14,7 +14,7 @@ from selenium.webdriver.support.relative_locator import locate_with
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class ClockIn:
+class clockIn:
     """健康打卡"""
 
     def __init__(self):
@@ -38,7 +38,7 @@ class ClockIn:
         for option in options_list:
             options.add_argument(option)
 
-        options.page_load_strategy = "none"
+        options.page_load_strategy = "eager"
         options.add_experimental_option(
             "excludeSwitches", ["ignore-certificate-errors", "enable-automation"]
         )
