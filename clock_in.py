@@ -149,7 +149,7 @@ class clockIn():
         message = self.driver.find_element(
             By.XPATH, "//div[@class='dialog_content']").text
 
-        if message == '办理成功!':
+        if message == 'Done successfully!':
             logger.info("打卡成功")
         else:
             logger.error(f"弹出框消息不正确，为:{message}")
