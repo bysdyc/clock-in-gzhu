@@ -1,10 +1,8 @@
-"""仅做学术交流使用"""
 import os
 import sys
 import traceback
 
 import requests
-import selenium.common
 import selenium.webdriver
 from loguru import logger
 from selenium.webdriver.chrome.options import Options
@@ -14,8 +12,7 @@ from selenium.webdriver.support.relative_locator import locate_with
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-class clockIn:
-    """健康打卡"""
+class clockIn():
 
     def __init__(self):
         self.xuhao = os.environ["XUHAO"]
