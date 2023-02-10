@@ -20,23 +20,30 @@ class clockIn():
         self.pushplus = os.environ["PUSHPLUS"]
 
         options = Options()
-        optionsList = [
-            "--headless--","--enable-javascript", "start-maximized",
-            "--disable-gpu", "--disable-extensions", "--no-sandbox",
-            "--disable-browser-side-navigation", "--disable-dev-shm-usage"
+        options_list = [
+            "--headless",
+            "--enable-javascript",
+            "start-maximized",
+            "--disable-gpu",
+            "--blink-settings=imagesEnabled=false",
+            "--disable-extensions",
+            "--no-sandbox",
+            "--disable-browser-side-navigation",
+            "--disable-dev-shm-usage",
         ]
 
-        for option in optionsList:
+        for option in options_list:
             options.add_argument(option)
 
-        options.page_load_strategy = 'eager'
+        options.page_load_strategy = "none"
         options.add_experimental_option(
-            "excludeSwitches",
-            ["ignore-certificate-errors", "enable-automation"])
+            "excludeSwitches", ["ignore-certificate-errors", "enable-automation"]
+        )
 
         self.driver = selenium.webdriver.Chrome(options=options)
         self.wdwait = WebDriverWait(self.driver, 30)
-
+        self.titlewait = WebDriverWait(self.driver, 5)
+        
         # self.page用来表示当前页面
         # 0表示初始页面，Unified Identity Authentication页面，统一身份认证页面和其它页面
         self.page = 0
