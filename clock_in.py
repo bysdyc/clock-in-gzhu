@@ -23,34 +23,26 @@ class clockIn:
         self.pushplus = os.environ["PUSHPLUS"]
 
         options = Options()
-        options_list = [
-            "--headless",
-            "--enable-javascript",
-            "start-maximized",
-            "--disable-gpu",
-            "--blink-settings=imagesEnabled=false",
-            "--disable-extensions",
-            "--no-sandbox",
-            "--disable-browser-side-navigation",
-            "--disable-dev-shm-usage",
+        optionsList = [
+            "--headless--","--enable-javascript", "start-maximized",
+            "--disable-gpu", "--disable-extensions", "--no-sandbox",
+            "--disable-browser-side-navigation", "--disable-dev-shm-usage"
         ]
 
-        for option in options_list:
+        for option in optionsList:
             options.add_argument(option)
 
-        options.page_load_strategy = "eager"
+        options.page_load_strategy = 'eager'
         options.add_experimental_option(
-            "excludeSwitches", ["ignore-certificate-errors", "enable-automation"]
-        )
+            "excludeSwitches",
+            ["ignore-certificate-errors", "enable-automation"])
 
         self.driver = selenium.webdriver.Chrome(options=options)
         self.wdwait = WebDriverWait(self.driver, 30)
-        self.titlewait = WebDriverWait(self.driver, 5)
 
-        # self.page用来表示当前页面标题，0表示初始页面
+        # self.page用来表示当前页面
+        # 0表示初始页面，Unified Identity Authentication页面，统一身份认证页面和其它页面
         self.page = 0
-
-        # self.fail表示打卡失败与否
         self.fail = False
 
     def __call__(self):
@@ -112,7 +104,7 @@ class clockIn:
     def step1(self):
         logger.info('正在转到统一身份认证页面')
         self.driver.get(
-            'https://newcas.gzhu.edu.cn/cas/login?service=https%3A%2F%2Fnewmy.gzhu.edu.cn%2Fup%2Fview%3Fm%3Dup'
+            'https://yq.gzhu.edu.cn/infoplus/form/XSJKZKSB/start'
         )
 
         self.wdwait.until(
@@ -128,12 +120,7 @@ class clockIn:
             self.driver.execute_script(script)
 
     def step2(self):
-        self.wdwait.until(
-            EC.visibility_of_element_located(
-                (By.XPATH, '//a[@title="健康打卡"]/img')))
-
         logger.info('正在转到学生健康状况申报页面')
-        self.driver.get('https://yq.gzhu.edu.cn/infoplus/form/XSJKZKSB/start')
 
     def step3(self):
         logger.info('正在转到填报健康信息 - 学生健康状况申报页面')
